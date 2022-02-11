@@ -28,7 +28,7 @@ class ToDoItem extends React.Component {
     return (
       <li>
         <input type="checkbox" checked={isFinished} onChange={this.handleChange} />
-        <input type="text" placeholder="请输入事项内容" value={description} onChange={this.handleInput} disabled={isFinished} />
+        <input type="text" placeholder="Please input your event" value={description} onChange={this.handleInput} disabled={isFinished} />
         <DeleteBtn />
       </li>
     );

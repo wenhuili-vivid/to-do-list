@@ -1,7 +1,10 @@
 module.exports = {
-    processors: [],
+    processors: ["stylelint-processor-styled-components"],
     plugins: ['stylelint-order'],
-    extends: [ "stylelint-config-standard", "stylelint-config-recess-order" ], // 这是官方推荐的方式
+    extends: [
+        "stylelint-config-recommended",
+        "stylelint-config-styled-components"
+    ],
     rules: {
         "at-rule-no-unknown": true,
         "block-no-empty": true,

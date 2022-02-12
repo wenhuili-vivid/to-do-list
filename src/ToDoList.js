@@ -7,7 +7,7 @@ const Title = styled.h1`
     font-size: 1.5em;
     text-align: center;
     color: palevioletred;
-    margin: 2em;
+    margin: 1.5em;
   `;
 
 const Wrapper = styled.section`
@@ -17,12 +17,17 @@ const Wrapper = styled.section`
     height: 100vh;
   `;
 
+const Ul = styled.ul`
+  list-style-type: none;  
+  padding: .5em;
+  `;
+
 class ToDoList extends React.Component {
   // eslint-disable-next-line no-useless-constructor
   constructor(props) {
     super(props);
     this.state = {
-      todoitems: [
+      toDoItems: [
         {
           isfinished: false,
           description: '学习react',
@@ -31,37 +36,69 @@ class ToDoList extends React.Component {
     };
   }
 
-  // eslint-disable-next-line class-methods-use-this
-  handleClick = () => {
-    const newitem = {
+  handleAdd = () => {
+    const newToDoItem = {
       isFinished: false,
       description: '',
     };
     this.setState({
       // eslint-disable-next-line react/destructuring-assignment,react/no-access-state-in-setstate
-      todoitems: [...this.state.todoitems, newitem],
+      toDoItems: [...this.state.toDoItems, newToDoItem],
     });
   };
 
-  // eslint-disable-next-line class-methods-use-this
+  handleDescriptionChange = (description, index) => {
+    // eslint-disable-next-line react/destructuring-assignment,react/no-access-state-in-setstate
+    const toDoItems = [...this.state.toDoItems];
+    this.setState({
+      // eslint-disable-next-line react/no-unused-state
+      toDoItems: toDoItems.map((item, key) => (key === index ? { ...item, description } : item)),
+    });
+  };
+
+  handleStatusChange = (isFinished, index) => {
+    // eslint-disable-next-line react/destructuring-assignment,react/no-access-state-in-setstate
+    const toDoItems = [...this.state.toDoItems];
+    this.setState({
+      // eslint-disable-next-line react/no-unused-state
+      toDoItems: toDoItems.map((item, key) => (key === index ? { ...item, isFinished } : item)),
+    });
+  };
+
+  handleDelete = (index) => {
+    // eslint-disable-next-line react/destructuring-assignment,react/no-access-state-in-setstate
+    const toDoItems = [...this.state.toDoItems];
+    toDoItems.splice(index, 1);
+    this.setState({
+      // eslint-disable-next-line react/destructuring-assignment,react/no-access-state-in-setstate
+      toDoItems,
+    });
+  };
+
   renderToDoItem = (item, index) => (
-    <ToDoItem item={item} index={index} />
+    <ToDoItem
+      item={item}
+      index={index}
+      descriptionChange={this.handleDescriptionChange}
+      statusChange={this.handleStatusChange}
+      deleteItem={this.handleDelete}
+    />
   );
 
   render() {
-    const { todoitems } = this.state;
+    const { toDoItems } = this.state;
 
     return (
       <Wrapper>
         <Title>To Do List</Title>
-        <AddBtn onClick={this.handleClick} />
-        <ul>
+        <AddBtn onClick={this.handleAdd} />
+        <Ul>
           {
-            todoitems.map((item, index) => (
+            toDoItems.map((item, index) => (
               this.renderToDoItem(item, index)
             ))
           }
-        </ul>
+        </Ul>
       </Wrapper>
     );
   }

@@ -1,19 +1,19 @@
 import styled from 'styled-components';
 
-function DeleteBtn() {
+function DeleteBtn(props) {
   const Button = styled.button`
-    display: inline-block;
-    background: white;
-    color: red;
+    background: transparent;
+    color: #d84949;
     font-size: 1em;
-    margin: 1em;
-    padding: 0.3em 0.6em;
-    border: 1px solid red;
-    border-radius: 1em;
+    margin: 0.5em;
+    padding: 0.25em 1em;
+    border: 1px solid lightcoral;
+    border-radius: 3px;
   `;
 
   return (
-    <Button>X</Button>
+  // eslint-disable-next-line react/prop-types,react/destructuring-assignment
+    <Button onClick={props.onClick}>Delete</Button>
   );
 }
 

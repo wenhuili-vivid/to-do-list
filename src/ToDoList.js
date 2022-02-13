@@ -71,6 +71,7 @@ class ToDoList extends React.Component {
 
   renderToDoItem = (item, index) => (
     <ToDoItem
+      key={index}
       item={item}
       index={index}
       descriptionChange={this.handleDescriptionChange}

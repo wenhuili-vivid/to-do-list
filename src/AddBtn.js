@@ -1,8 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-function AddBtn(props) {
-  const Button = styled.button`
+const Button = styled.button`
     background: palevioletred;
     color: white;
     font-size: 1em;
@@ -12,6 +11,7 @@ function AddBtn(props) {
     border-radius: 3px;
   `;
 
+function AddBtn(props) {
   return (
     <div>
       {/* eslint-disable-next-line react/destructuring-assignment */}

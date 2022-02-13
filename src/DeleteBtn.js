@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 
-function DeleteBtn(props) {
-  const Button = styled.button`
+const Button = styled.button`
     background: transparent;
     color: #d84949;
     font-size: 1em;
@@ -11,6 +10,7 @@ function DeleteBtn(props) {
     border-radius: 3px;
   `;
 
+function DeleteBtn(props) {
   return (
   // eslint-disable-next-line react/destructuring-assignment
     <Button onClick={props.onClick}>Delete</Button>

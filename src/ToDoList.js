@@ -23,7 +23,6 @@ const Ul = styled.ul`
   `;
 
 class ToDoList extends React.Component {
-  // eslint-disable-next-line no-useless-constructor
   constructor(props) {
     super(props);
     this.state = {
@@ -41,38 +40,33 @@ class ToDoList extends React.Component {
       isFinished: false,
       description: '',
     };
-    this.setState({
-      // eslint-disable-next-line react/destructuring-assignment,react/no-access-state-in-setstate
-      toDoItems: [...this.state.toDoItems, newToDoItem],
-    });
+    this.setState((prevState) => ({
+      toDoItems: [newToDoItem, ...prevState.toDoItems],
+    }));
   };
 
   handleDescriptionChange = (description, index) => {
-    // eslint-disable-next-line react/destructuring-assignment,react/no-access-state-in-setstate
-    const toDoItems = [...this.state.toDoItems];
-    this.setState({
-      // eslint-disable-next-line react/no-unused-state
-      toDoItems: toDoItems.map((item, key) => (key === index ? { ...item, description } : item)),
-    });
+    this.setState((prevState) => ({
+      toDoItems: [...prevState.toDoItems].map((item, key) => (
+        key === index ? { ...item, description } : item
+      )),
+    }));
   };
 
   handleStatusChange = (isFinished, index) => {
-    // eslint-disable-next-line react/destructuring-assignment,react/no-access-state-in-setstate
-    const toDoItems = [...this.state.toDoItems];
-    this.setState({
-      // eslint-disable-next-line react/no-unused-state
-      toDoItems: toDoItems.map((item, key) => (key === index ? { ...item, isFinished } : item)),
-    });
+    this.setState((prevState) => ({
+      toDoItems: [...prevState.toDoItems].map((item, key) => (
+        key === index ? { ...item, isFinished } : item
+      )),
+    }));
   };
 
   handleDelete = (index) => {
-    // eslint-disable-next-line react/destructuring-assignment,react/no-access-state-in-setstate
     const toDoItems = [...this.state.toDoItems];
     toDoItems.splice(index, 1);
-    this.setState({
-      // eslint-disable-next-line react/destructuring-assignment,react/no-access-state-in-setstate
+    this.setState(() => ({
       toDoItems,
-    });
+    }));
   };
 
   renderToDoItem = (item, index) => (

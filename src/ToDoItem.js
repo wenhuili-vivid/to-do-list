@@ -18,21 +18,25 @@ const Input = styled.input`
     font-size: 1.2em;
     color: #282c34;
     width: 300px;
+    
+    :focus {
+      outline: none;
+    }
   `;
 
 class ToDoItem extends React.Component {
   handleCheckboxChange = () => {
-    // eslint-disable-next-line react/prop-types,react/destructuring-assignment
+    // eslint-disable-next-line react/prop-types
     this.props.statusChange(!this.props.item.isFinished, this.props.index);
   };
 
   handleInputChange = (e) => {
-    // eslint-disable-next-line react/destructuring-assignment,react/prop-types
+    // eslint-disable-next-line react/prop-types
     this.props.descriptionChange(e.target.value, this.props.index);
   };
 
-  handleClick = () => {
-    // eslint-disable-next-line react/prop-types,react/destructuring-assignment
+  handleDeleteBtnClick = () => {
+    // eslint-disable-next-line react/prop-types
     this.props.deleteItem(this.props.index);
   };
 
@@ -44,8 +48,8 @@ class ToDoItem extends React.Component {
         {/* eslint-disable-next-line react/prop-types */}
         <CheckBox type="checkbox" checked={item.isFinished} onChange={this.handleCheckboxChange} />
         {/* eslint-disable-next-line react/prop-types */}
-        <Input type="text" placeholder="Please input your event" value={item.description} onChange={this.handleInputChange} disabled={item.isFinished} />
-        <DeleteBtn onClick={this.handleClick} />
+        <Input type="text" placeholder="Please input your todo" value={item.description} onChange={this.handleInputChange} disabled={item.isFinished} />
+        <DeleteBtn onClick={this.handleDeleteBtnClick} />
       </Li>
     );
   }

@@ -14,7 +14,7 @@ function AddBtn(props) {
 
   return (
     <div>
-      {/* eslint-disable-next-line react/prop-types,react/destructuring-assignment */}
+      {/* eslint-disable-next-line react/destructuring-assignment */}
       <Button onClick={props.onClick}>+ Create</Button>
     </div>
   );

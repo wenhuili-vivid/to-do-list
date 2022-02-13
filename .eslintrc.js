@@ -21,5 +21,6 @@ module.exports = {
     'react/react-in-jsx-scope': 'off',
     'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx'] }],
     'react/destructuring-assignment': ['error', 'always', { ignoreClassFields: true }],
+    'react/prop-types': ['error', { ignore: [], customValidators: [], skipUndeclared: true }],
   },
 };

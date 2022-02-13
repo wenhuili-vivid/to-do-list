@@ -28,7 +28,7 @@ class ToDoList extends React.Component {
     this.state = {
       toDoItems: [
         {
-          isfinished: false,
+          isFinished: false,
           description: '学习react',
         },
       ],
@@ -46,17 +46,23 @@ class ToDoList extends React.Component {
   };
 
   handleDescriptionChange = (description, index) => {
-    this.setState((prevState) => ({
-      toDoItems: [...prevState.toDoItems].map((item, key) => (
-        key === index ? { ...item, description } : item
+    const currentDescription = description;
+    const toDoItems = [...this.state.toDoItems];
+
+    this.setState(() => ({
+      toDoItems: toDoItems.map((item, key) => (
+        key === index ? { ...item, description: currentDescription } : item
       )),
     }));
   };
 
   handleStatusChange = (isFinished, index) => {
-    this.setState((prevState) => ({
-      toDoItems: [...prevState.toDoItems].map((item, key) => (
-        key === index ? { ...item, isFinished } : item
+    const currentStatus = isFinished;
+    const toDoItems = [...this.state.toDoItems];
+
+    this.setState(() => ({
+      toDoItems: toDoItems.map((item, key) => (
+        key === index ? { ...item, isFinished: currentStatus } : item
       )),
     }));
   };

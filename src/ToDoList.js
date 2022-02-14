@@ -25,8 +25,14 @@ const Ul = styled.ul`
 class ToDoList extends React.Component {
   constructor(props) {
     super(props);
+    let myToDoList = window.localStorage.getItem('myToDoList');
+    if (myToDoList == null || myToDoList === '') {
+      myToDoList = []; // 初始化值
+    } else {
+      myToDoList = myToDoList.split(',');
+    }
     this.state = {
-      toDoItems: [],
+      toDoItems: myToDoList,
     };
   }
 
@@ -38,6 +44,7 @@ class ToDoList extends React.Component {
     this.setState((prevState) => ({
       toDoItems: [newToDoItem, ...prevState.toDoItems],
     }));
+    window.localStorage.setItem('myToDoList', JSON.stringify(this.state.toDoItems));
   };
 
   handleDescriptionChange = (description, index) => {
@@ -49,6 +56,7 @@ class ToDoList extends React.Component {
         key === index ? { ...item, description: currentDescription } : item
       )),
     }));
+    window.localStorage.setItem('myToDoList', JSON.stringify(this.state.toDoItems));
   };
 
   handleStatusChange = (isFinished, index) => {
@@ -60,6 +68,7 @@ class ToDoList extends React.Component {
         key === index ? { ...item, isFinished: currentStatus } : item
       )),
     }));
+    window.localStorage.setItem('myToDoList', JSON.stringify(this.state.toDoItems));
   };
 
   handleDelete = (index) => {
@@ -67,6 +76,7 @@ class ToDoList extends React.Component {
     this.setState(() => ({
       toDoItems,
     }));
+    window.localStorage.setItem('myToDoList', JSON.stringify(this.state.toDoItems));
   };
 
   renderToDoItem = (item, index) => (

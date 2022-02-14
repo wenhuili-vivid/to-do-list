@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import AddBtn from './AddBtn';
+import AddButton from './AddButton';
 import ToDoItem from './ToDoItem';
 
 const Title = styled.h1`
@@ -8,19 +8,19 @@ const Title = styled.h1`
     text-align: center;
     color: palevioletred;
     margin: 1.5em;
-  `;
+`;
 
 const Wrapper = styled.section`
     padding: 1em;
     background: papayawhip;
     text-align: center;
     height: 100vh;
-  `;
+`;
 
 const Ul = styled.ul`
   list-style-type: none;  
   padding: .5em;
-  `;
+`;
 
 class ToDoList extends React.Component {
   constructor(props) {
@@ -36,7 +36,7 @@ class ToDoList extends React.Component {
     };
   }
 
-  handleAdd = () => {
+  getAddHandler = () => {
     const newToDoItem = {
       isFinished: false,
       description: '',
@@ -47,19 +47,17 @@ class ToDoList extends React.Component {
     window.localStorage.setItem('myToDoList', JSON.stringify(this.state.toDoItems));
   };
 
-  handleDescriptionChange = (description, index) => {
+  getDescriptionChangeHandler = (description, index) => {
     const currentDescription = description;
-    const toDoItems = [...this.state.toDoItems];
 
-    this.setState(() => ({
-      toDoItems: toDoItems.map((item, key) => (
+    this.setState((prevState) => ({
+      toDoItems: prevState.toDoItems.map((item, key) => (
         key === index ? { ...item, description: currentDescription } : item
       )),
     }));
-    window.localStorage.setItem('myToDoList', JSON.stringify(this.state.toDoItems));
   };
 
-  handleStatusChange = (isFinished, index) => {
+  getStatusChangeHandler = (isFinished, index) => {
     const currentStatus = isFinished;
     const toDoItems = [...this.state.toDoItems];
 
@@ -68,25 +66,23 @@ class ToDoList extends React.Component {
         key === index ? { ...item, isFinished: currentStatus } : item
       )),
     }));
-    window.localStorage.setItem('myToDoList', JSON.stringify(this.state.toDoItems));
   };
 
-  handleDelete = (index) => {
-    const toDoItems = this.state.toDoItems.filter((item, key) => key !== index);
+  getDeleteHandler = (index) => {
+    const toDoItems = [...this.state.toDoItems];
+    toDoItems.splice(index, 1);
     this.setState(() => ({
       toDoItems,
     }));
-    window.localStorage.setItem('myToDoList', JSON.stringify(this.state.toDoItems));
   };
 
   renderToDoItem = (item, index) => (
     <ToDoItem
       key={index}
       item={item}
-      index={index}
-      descriptionChange={this.handleDescriptionChange}
-      statusChange={this.handleStatusChange}
-      deleteItem={this.handleDelete}
+      onDescriptionChange={this.getDescriptionChangeHandler}
+      onStatusChange={this.getStatusChangeHandler}
+      onDelete={this.getDeleteHandler(index)}
     />
   );
 
@@ -96,12 +92,10 @@ class ToDoList extends React.Component {
     return (
       <Wrapper>
         <Title>To Do List</Title>
-        <AddBtn onClick={this.handleAdd} />
+        <AddButton onClick={this.getAddHandler} />
         <Ul>
           {
-            toDoItems.map((item, index) => (
-              this.renderToDoItem(item, index)
-            ))
+            toDoItems.map(this.renderToDoItem)
           }
         </Ul>
       </Wrapper>

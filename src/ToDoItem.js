@@ -1,14 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
-import DeleteBtn from './DeleteBtn';
+import DeleteButton from './DeleteButton';
 
 const Li = styled.li`
     padding: .5em;
-  `;
+`;
 
 const CheckBox = styled.input`
     padding: .5em;
-  `;
+`;
 
 const Input = styled.input`
     padding: .5em;
@@ -26,19 +26,19 @@ const Input = styled.input`
     :disabled {
       text-decoration: line-through;
     }
-  `;
+`;
 
 class ToDoItem extends React.Component {
   handleCheckboxChange = (e) => {
-    this.props.statusChange(e.target.checked, this.props.index);
+    this.props.onStatusChange(e.target.checked);
   };
 
   handleInputChange = (e) => {
-    this.props.descriptionChange(e.target.value, this.props.index);
+    this.props.onDescriptionChange(e.target.value);
   };
 
-  handleDeleteBtnClick = () => {
-    this.props.deleteItem(this.props.index);
+  handleDeleteButtonClick = () => {
+    this.props.onDelete();
   };
 
   render() {
@@ -47,7 +47,7 @@ class ToDoItem extends React.Component {
       <Li>
         <CheckBox type="checkbox" checked={isFinished} onChange={this.handleCheckboxChange} />
         <Input type="text" placeholder="Please input your todo" value={description} onChange={this.handleInputChange} disabled={isFinished} />
-        <DeleteBtn onClick={this.handleDeleteBtnClick} disabled={isFinished} />
+        <DeleteButton onClick={this.handleDeleteButtonClick} disabled={isFinished} />
       </Li>
     );
   }

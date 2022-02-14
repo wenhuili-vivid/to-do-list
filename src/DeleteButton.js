@@ -8,7 +8,7 @@ const Button = styled.button`
     padding: 0.25em 1em;
     border: 1px solid lightcoral;
     border-radius: 3px;
-  `;
+`;
 
 function DeleteButton(props) {
   return (

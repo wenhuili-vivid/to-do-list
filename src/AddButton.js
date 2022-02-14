@@ -9,7 +9,7 @@ const Button = styled.button`
     padding: 0.25em 1em;
     border: 1px solid palevioletred;
     border-radius: 3px;
-  `;
+`;
 
 function AddButton(props) {
   return (

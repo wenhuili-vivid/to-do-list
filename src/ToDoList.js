@@ -17,12 +17,12 @@ const Wrapper = styled.section`
     height: 100vh;
 `;
 
-const Ul = styled.ul`
+const ListWrapper = styled.ul`
   list-style-type: none;  
   padding: .5em;
 `;
 
-class ToDoList extends React.Component {
+class App extends React.Component {
   constructor(props) {
     super(props);
     let myToDoList = window.localStorage.getItem('myToDoList');
@@ -93,14 +93,14 @@ class ToDoList extends React.Component {
       <Wrapper>
         <Title>To Do List</Title>
         <AddButton onClick={this.getAddHandler} />
-        <Ul>
+        <ToDoList>
           {
             toDoItems.map(this.renderToDoItem)
           }
-        </Ul>
+        </ToDoList>
       </Wrapper>
     );
   }
 }
 
-export default ToDoList;
+export default App;

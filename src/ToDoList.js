@@ -27,7 +27,7 @@ class ToDoList extends React.Component {
     super(props);
     let myToDoList = window.localStorage.getItem('myToDoList');
     if (myToDoList == null || myToDoList === '') {
-      myToDoList = []; // 初始化值
+      myToDoList = [];
     } else {
       myToDoList = myToDoList.split(',');
     }

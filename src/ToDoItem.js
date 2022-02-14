@@ -29,8 +29,8 @@ const Input = styled.input`
   `;
 
 class ToDoItem extends React.Component {
-  handleCheckboxChange = () => {
-    this.props.statusChange(!this.props.item.isFinished, this.props.index);
+  handleCheckboxChange = (e) => {
+    this.props.statusChange(e.target.checked, this.props.index);
   };
 
   handleInputChange = (e) => {
@@ -42,9 +42,9 @@ class ToDoItem extends React.Component {
   };
 
   render() {
-    const { item: { description, isFinished }, index } = this.props;
+    const { item: { description, isFinished } } = this.props;
     return (
-      <Li key={index}>
+      <Li>
         <CheckBox type="checkbox" checked={isFinished} onChange={this.handleCheckboxChange} />
         <Input type="text" placeholder="Please input your todo" value={description} onChange={this.handleInputChange} disabled={isFinished} />
         <DeleteBtn onClick={this.handleDeleteBtnClick} disabled={isFinished} />

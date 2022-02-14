@@ -63,8 +63,7 @@ class ToDoList extends React.Component {
   };
 
   handleDelete = (index) => {
-    const toDoItems = [...this.state.toDoItems];
-    toDoItems.splice(index, 1);
+    const toDoItems = this.state.toDoItems.filter((item, key) => key !== index);
     this.setState(() => ({
       toDoItems,
     }));

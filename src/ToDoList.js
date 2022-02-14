@@ -26,12 +26,7 @@ class ToDoList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      toDoItems: [
-        {
-          isFinished: false,
-          description: '学习react',
-        },
-      ],
+      toDoItems: [],
     };
   }
 

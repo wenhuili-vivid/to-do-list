@@ -11,7 +11,7 @@ const Button = styled.button`
     border-radius: 3px;
   `;
 
-function AddBtn(props) {
+function AddButton(props) {
   return (
     <div>
       {/* eslint-disable-next-line react/destructuring-assignment */}
@@ -20,4 +20,4 @@ function AddBtn(props) {
   );
 }
 
-export default AddBtn;
+export default AddButton;

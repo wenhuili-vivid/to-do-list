@@ -10,11 +10,11 @@ const Button = styled.button`
     border-radius: 3px;
   `;
 
-function DeleteBtn(props) {
+function DeleteButton(props) {
   return (
   // eslint-disable-next-line react/destructuring-assignment
     <Button onClick={props.onClick}>Delete</Button>
   );
 }
 
-export default DeleteBtn;
+export default DeleteButton;

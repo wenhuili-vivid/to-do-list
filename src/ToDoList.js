@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import update from 'immutability-helper';
 import AddButton from './AddButton';
 import ToDoItem from './ToDoItem';
 
@@ -22,32 +23,40 @@ const ListWrapper = styled.ul`
   padding: .5em;
 `;
 
-class App extends React.Component {
+class ToDoList extends React.Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      toDoItems: [],
+    };
+  }
+
+  componentDidMount() {
     let myToDoList = window.localStorage.getItem('myToDoList');
     if (myToDoList == null || myToDoList === '') {
       myToDoList = [];
     } else {
-      myToDoList = myToDoList.split(',');
+      myToDoList = JSON.parse(myToDoList);
     }
-    this.state = {
+    this.setState({
       toDoItems: myToDoList,
-    };
+    });
+  }
+
+  componentDidUpdate() {
+    const { toDoItems } = this.state;
+    window.localStorage.setItem('myToDoList', JSON.stringify(toDoItems));
   }
 
   getAddHandler = () => {
-    const newToDoItem = {
-      isFinished: false,
-      description: '',
-    };
-    this.setState((prevState) => ({
-      toDoItems: [newToDoItem, ...prevState.toDoItems],
-    }));
-    window.localStorage.setItem('myToDoList', JSON.stringify(this.state.toDoItems));
+    const toDoItems = update(this.state, { toDoItems: { $unshift: [{ isFinished: false, description: '' }] } });
+    this.setState(
+      toDoItems,
+    );
   };
 
-  getDescriptionChangeHandler = (description, index) => {
+  getDescriptionChangeHandler = (index, description) => {
     const currentDescription = description;
 
     this.setState((prevState) => ({
@@ -57,7 +66,7 @@ class App extends React.Component {
     }));
   };
 
-  getStatusChangeHandler = (isFinished, index) => {
+  getStatusChangeHandler = (index, isFinished) => {
     const currentStatus = isFinished;
     const toDoItems = [...this.state.toDoItems];
 
@@ -69,11 +78,10 @@ class App extends React.Component {
   };
 
   getDeleteHandler = (index) => {
-    const toDoItems = [...this.state.toDoItems];
-    toDoItems.splice(index, 1);
-    this.setState(() => ({
+    const toDoItems = update(this.state, { toDoItems: { $splice: [[index, 1]] } });
+    this.setState(
       toDoItems,
-    }));
+    );
   };
 
   renderToDoItem = (item, index) => (
@@ -82,7 +90,7 @@ class App extends React.Component {
       item={item}
       onDescriptionChange={this.getDescriptionChangeHandler}
       onStatusChange={this.getStatusChangeHandler}
-      onDelete={this.getDeleteHandler(index)}
+      onDelete={() => (this.getDeleteHandler(index))}
     />
   );
 
@@ -93,14 +101,14 @@ class App extends React.Component {
       <Wrapper>
         <Title>To Do List</Title>
         <AddButton onClick={this.getAddHandler} />
-        <ToDoList>
+        <ListWrapper>
           {
             toDoItems.map(this.renderToDoItem)
           }
-        </ToDoList>
+        </ListWrapper>
       </Wrapper>
     );
   }
 }
 
-export default App;
+export default ToDoList;

@@ -57,24 +57,29 @@ class ToDoList extends React.Component {
   };
 
   getDescriptionChangeHandler = (index, description) => {
-    const currentDescription = description;
-
-    this.setState((prevState) => ({
-      toDoItems: prevState.toDoItems.map((item, key) => (
-        key === index ? { ...item, description: currentDescription } : item
-      )),
-    }));
+    const toDoItems = update(this.state, {
+      toDoItems: {
+        [index]: {
+          description: { $set: description },
+        },
+      },
+    });
+    this.setState(
+      toDoItems,
+    );
   };
 
   getStatusChangeHandler = (index, isFinished) => {
-    const currentStatus = isFinished;
-    const toDoItems = [...this.state.toDoItems];
-
-    this.setState(() => ({
-      toDoItems: toDoItems.map((item, key) => (
-        key === index ? { ...item, isFinished: currentStatus } : item
-      )),
-    }));
+    const toDoItems = update(this.state, {
+      toDoItems: {
+        [index]: {
+          isFinished: { $set: isFinished },
+        },
+      },
+    });
+    this.setState(
+      toDoItems,
+    );
   };
 
   getDeleteHandler = (index) => {
@@ -88,8 +93,8 @@ class ToDoList extends React.Component {
     <ToDoItem
       key={index}
       item={item}
-      onDescriptionChange={this.getDescriptionChangeHandler}
-      onStatusChange={this.getStatusChangeHandler}
+      onDescriptionChange={(description) => this.getDescriptionChangeHandler(index, description)}
+      onStatusChange={(isFinished) => this.getStatusChangeHandler(index, isFinished)}
       onDelete={() => (this.getDeleteHandler(index))}
     />
   );

@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
 const Button = styled.button`
     background: palevioletred;
@@ -12,12 +13,16 @@ const Button = styled.button`
 `;
 
 function AddButton(props) {
+  const { onClick } = props;
   return (
     <div>
-      {/* eslint-disable-next-line react/destructuring-assignment */}
-      <Button onClick={props.onClick}>+ Create</Button>
+      <Button onClick={onClick}>+ Create</Button>
     </div>
   );
 }
+
+AddButton.propTypes = {
+  onClick: PropTypes.func.isRequired,
+};
 
 export default AddButton;

@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
 const Button = styled.button`
     background: transparent;
@@ -11,10 +12,14 @@ const Button = styled.button`
 `;
 
 function DeleteButton(props) {
+  const { onClick } = props;
   return (
-  // eslint-disable-next-line react/destructuring-assignment
-    <Button onClick={props.onClick}>Delete</Button>
+    <Button onClick={onClick}>Delete</Button>
   );
 }
+
+DeleteButton.propTypes = {
+  onClick: PropTypes.func.isRequired,
+};
 
 export default DeleteButton;

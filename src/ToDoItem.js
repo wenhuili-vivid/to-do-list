@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 import DeleteButton from './DeleteButton';
 
 const Li = styled.li`
@@ -47,10 +48,20 @@ class ToDoItem extends React.Component {
       <Li>
         <CheckBox type="checkbox" checked={isFinished} onChange={this.handleCheckboxChange} />
         <Input type="text" placeholder="Please input your todo" value={description} onChange={this.handleInputChange} disabled={isFinished} />
-        <DeleteButton onClick={this.handleDeleteButtonClick} disabled={isFinished} />
+        <DeleteButton onClick={this.handleDeleteButtonClick} />
       </Li>
     );
   }
 }
 
 export default ToDoItem;
+
+ToDoItem.propTypes = {
+  onStatusChange: PropTypes.func.isRequired,
+  onDescriptionChange: PropTypes.func.isRequired,
+  onDelete: PropTypes.func.isRequired,
+  item: PropTypes.shape({
+    description: PropTypes.string,
+    isFinished: PropTypes.bool,
+  }).isRequired,
+};

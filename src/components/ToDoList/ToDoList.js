@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import update from 'immutability-helper';
-import AddButton from './AddButton';
-import ToDoItem from './ToDoItem';
+import AddButton from '../AddButton/AddButton';
+import ToDoItem from '../ToDoItem/ToDoItem';
 
 const Title = styled.h1`
     font-size: 1.5em;
@@ -18,7 +18,7 @@ const Wrapper = styled.section`
     height: 100vh;
 `;
 
-const ListWrapper = styled.ul`
+const ToDoListBox = styled.ul`
   list-style-type: none;  
   padding: .5em;
 `;
@@ -106,11 +106,11 @@ class ToDoList extends React.Component {
       <Wrapper>
         <Title>To Do List</Title>
         <AddButton onClick={this.getAddHandler} />
-        <ListWrapper>
+        <ToDoListBox>
           {
             toDoItems.map(this.renderToDoItem)
           }
-        </ListWrapper>
+        </ToDoListBox>
       </Wrapper>
     );
   }

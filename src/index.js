@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
-import ToDoList from './ToDoList';
+import ToDoList from './components/ToDoList/ToDoList';
 
 ReactDOM.render(
   <React.StrictMode>

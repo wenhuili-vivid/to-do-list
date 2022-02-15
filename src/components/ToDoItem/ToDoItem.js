@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import DeleteButton from './DeleteButton';
+import DeleteButton from '../DeleteButton/DeleteButton';
 
 const Li = styled.li`
     padding: .5em;

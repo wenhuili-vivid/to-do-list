@@ -105,7 +105,7 @@ class ToDoList extends React.Component {
     return (
       <Wrapper>
         <Title>To Do List</Title>
-        <AddButton onClick={this.getAddHandler} />
+        <AddButton onClick={this.getAddHandler} primary disabled={false} label="+ Create" />
         <ToDoListBox>
           {
             toDoItems.map(this.renderToDoItem)

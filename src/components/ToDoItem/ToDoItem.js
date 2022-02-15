@@ -48,7 +48,7 @@ class ToDoItem extends React.Component {
       <Li>
         <CheckBox type="checkbox" checked={isFinished} onChange={this.handleCheckboxChange} />
         <Input type="text" placeholder="Please input your todo" value={description} onChange={this.handleInputChange} disabled={isFinished} />
-        <DeleteButton onClick={this.handleDeleteButtonClick} />
+        <DeleteButton onClick={this.handleDeleteButtonClick} primary={false} />
       </Li>
     );
   }

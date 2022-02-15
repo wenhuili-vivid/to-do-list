@@ -2,8 +2,8 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
 const Button = styled.button`
-    background: transparent;
-    color: #d84949;
+    background: ${(props) => (props.primary ? '#d84949' : 'transparent')};
+    color:  ${(props) => (props.primary ? 'white' : '#d84949')};
     font-size: 1em;
     margin: 0.5em;
     padding: 0.25em 1em;
@@ -12,14 +12,15 @@ const Button = styled.button`
 `;
 
 function DeleteButton(props) {
-  const { onClick } = props;
+  const { onClick, primary } = props;
   return (
-    <Button onClick={onClick}>Delete</Button>
+    <Button onClick={onClick} primary={primary}>Delete</Button>
   );
 }
 
 DeleteButton.propTypes = {
   onClick: PropTypes.func.isRequired,
+  primary: PropTypes.bool.isRequired,
 };
 
 export default DeleteButton;

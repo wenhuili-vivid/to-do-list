@@ -50,7 +50,7 @@ class ToDoList extends React.Component {
   }
 
   getAddHandler = () => {
-    const toDoItems = update(this.state, { toDoItems: { $unshift: [{ isFinished: false, description: '' }] } });
+    const toDoItems = update(this.state, { toDoItems: { $unshift: [{ isFinished: false, description: '', deadline: '' }] } });
     this.setState(
       toDoItems,
     );
@@ -82,6 +82,19 @@ class ToDoList extends React.Component {
     );
   };
 
+  getAddDateHandler = (index, deadline) => {
+    const toDoItems = update(this.state, {
+      toDoItems: {
+        [index]: {
+          deadline: { $set: deadline },
+        },
+      },
+    });
+    this.setState(
+      toDoItems,
+    );
+  };
+
   getDeleteHandler = (index) => {
     const toDoItems = update(this.state, { toDoItems: { $splice: [[index, 1]] } });
     this.setState(
@@ -95,6 +108,7 @@ class ToDoList extends React.Component {
       item={item}
       onDescriptionChange={(description) => this.getDescriptionChangeHandler(index, description)}
       onStatusChange={(isFinished) => this.getStatusChangeHandler(index, isFinished)}
+      onAddDate={(deadline) => (this.getAddDateHandler(index, deadline))}
       onDelete={() => (this.getDeleteHandler(index))}
     />
   );

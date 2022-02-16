@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import update from 'immutability-helper';
 import AddButton from '../AddButton/AddButton';
 import ToDoItem from '../ToDoItem/ToDoItem';
+import { getMyToDoList, setMyToDoList } from '../../store/myToDoList';
 
 const Title = styled.h1`
     font-size: 1.5em;
@@ -33,20 +34,14 @@ class ToDoList extends React.Component {
   }
 
   componentDidMount() {
-    let myToDoList = window.localStorage.getItem('myToDoList');
-    if (myToDoList == null || myToDoList === '') {
-      myToDoList = [];
-    } else {
-      myToDoList = JSON.parse(myToDoList);
-    }
     this.setState({
-      toDoItems: myToDoList,
+      toDoItems: getMyToDoList(),
     });
   }
 
   componentDidUpdate() {
     const { toDoItems } = this.state;
-    window.localStorage.setItem('myToDoList', JSON.stringify(toDoItems));
+    setMyToDoList(toDoItems);
   }
 
   getAddHandler = () => {

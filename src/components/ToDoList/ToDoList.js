@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import update from 'immutability-helper';
 import AddButton from '../AddButton/AddButton';
@@ -24,105 +24,55 @@ const ToDoListBox = styled.ul`
   padding: .5em;
 `;
 
-class ToDoList extends React.Component {
-  constructor(props) {
-    super(props);
+function ToDoList() {
+  const [toDoItems, setToDoItems] = useState(getMyToDoList());
 
-    this.state = {
-      toDoItems: [],
-    };
-  }
-
-  componentDidMount() {
-    this.setState({
-      toDoItems: getMyToDoList(),
-    });
-  }
-
-  componentDidUpdate() {
-    const { toDoItems } = this.state;
+  useEffect(() => {
     setMyToDoList(toDoItems);
-  }
+  }, [toDoItems]);
 
-  getAddHandler = () => {
-    const toDoItems = update(this.state, { toDoItems: { $unshift: [{ isFinished: false, description: '', deadline: '' }] } });
-    this.setState(
-      toDoItems,
-    );
+  const getAddHandler = () => {
+    setToDoItems(update(toDoItems, { $unshift: [{ isFinished: false, description: '', deadline: '' }] }));
   };
 
-  getDescriptionChangeHandler = (index, description) => {
-    const toDoItems = update(this.state, {
-      toDoItems: {
-        [index]: {
-          description: { $set: description },
-        },
-      },
-    });
-    this.setState(
-      toDoItems,
-    );
+  const getDescriptionChangeHandler = (index, description) => {
+    setToDoItems(update(toDoItems, { [index]: { description: { $set: description } } }));
   };
 
-  getStatusChangeHandler = (index, isFinished) => {
-    const toDoItems = update(this.state, {
-      toDoItems: {
-        [index]: {
-          isFinished: { $set: isFinished },
-        },
-      },
-    });
-    this.setState(
-      toDoItems,
-    );
+  const getStatusChangeHandler = (index, isFinished) => {
+    setToDoItems(update(toDoItems, { [index]: { isFinished: { $set: isFinished } } }));
   };
 
-  getAddDateHandler = (index, deadline) => {
-    const toDoItems = update(this.state, {
-      toDoItems: {
-        [index]: {
-          deadline: { $set: deadline },
-        },
-      },
-    });
-    this.setState(
-      toDoItems,
-    );
+  const getAddDateHandler = (index, deadline) => {
+    setToDoItems(update(toDoItems, { [index]: { deadline: { $set: deadline } } }));
   };
 
-  getDeleteHandler = (index) => {
-    const toDoItems = update(this.state, { toDoItems: { $splice: [[index, 1]] } });
-    this.setState(
-      toDoItems,
-    );
+  const getDeleteHandler = (index) => {
+    setToDoItems(update(toDoItems, { $splice: [[index, 1]] }));
   };
 
-  renderToDoItem = (item, index) => (
+  const renderToDoItem = (item, index) => (
     <ToDoItem
       key={index}
       item={item}
-      onDescriptionChange={(description) => this.getDescriptionChangeHandler(index, description)}
-      onStatusChange={(isFinished) => this.getStatusChangeHandler(index, isFinished)}
-      onAddDate={(deadline) => (this.getAddDateHandler(index, deadline))}
-      onDelete={() => (this.getDeleteHandler(index))}
+      onDescriptionChange={(description) => getDescriptionChangeHandler(index, description)}
+      onStatusChange={(isFinished) => getStatusChangeHandler(index, isFinished)}
+      onAddDate={(deadline) => (getAddDateHandler(index, deadline))}
+      onDelete={() => (getDeleteHandler(index))}
     />
   );
 
-  render() {
-    const { toDoItems } = this.state;
-
-    return (
-      <Wrapper>
-        <Title>To Do List</Title>
-        <AddButton onClick={this.getAddHandler} primary disabled={false} label="+ Create" />
-        <ToDoListBox>
-          {
-            toDoItems.map(this.renderToDoItem)
-          }
-        </ToDoListBox>
-      </Wrapper>
-    );
-  }
+  return (
+    <Wrapper>
+      <Title>To Do List</Title>
+      <AddButton onClick={getAddHandler} primary disabled={false} label="+ Create" />
+      <ToDoListBox>
+        {
+          toDoItems.map(renderToDoItem)
+        }
+      </ToDoListBox>
+    </Wrapper>
+  );
 }
 
 export default ToDoList;

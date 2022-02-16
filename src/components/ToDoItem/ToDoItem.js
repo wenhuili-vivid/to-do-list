@@ -54,36 +54,34 @@ const DateInput = styled.input`
   }
 `;
 
-class ToDoItem extends React.Component {
-  handleCheckboxChange = (e) => {
-    this.props.onStatusChange(e.target.checked);
+function ToDoItem({ ...props }) {
+  const handleCheckboxChange = (e) => {
+    props.onStatusChange(e.target.checked);
   };
 
-  handleInputChange = (e) => {
-    this.props.onDescriptionChange(e.target.value);
+  const handleInputChange = (e) => {
+    props.onDescriptionChange(e.target.value);
   };
 
-  handleAddDateChange = (e) => {
-    this.props.onAddDate(e.target.value);
+  const handleAddDateChange = (e) => {
+    props.onAddDate(e.target.value);
   };
 
-  handleDeleteButtonClick = () => {
-    this.props.onDelete();
+  const handleDeleteButtonClick = () => {
+    props.onDelete();
   };
 
-  render() {
-    const { item: { description, isFinished, deadline } } = this.props;
-    return (
-      <ToDoItemBox>
-        <CheckBox type="checkbox" checked={isFinished} onChange={this.handleCheckboxChange} />
-        <ToDoItemContent>
-          <DescriptionInput type="text" placeholder="Please input your todo" value={description} onChange={this.handleInputChange} disabled={isFinished} />
-          <DateInput type="text" placeholder="Add Date" value={deadline} onChange={this.handleAddDateChange} />
-        </ToDoItemContent>
-        <DeleteButton onClick={this.handleDeleteButtonClick} primary={false} />
-      </ToDoItemBox>
-    );
-  }
+  const { item: { description, isFinished, deadline } } = props;
+  return (
+    <ToDoItemBox>
+      <CheckBox type="checkbox" checked={isFinished} onChange={handleCheckboxChange} />
+      <ToDoItemContent>
+        <DescriptionInput type="text" placeholder="Please input your todo" value={description} onChange={handleInputChange} disabled={isFinished} />
+        <DateInput type="text" placeholder="Add Date" value={deadline} onChange={handleAddDateChange} />
+      </ToDoItemContent>
+      <DeleteButton onClick={handleDeleteButtonClick} primary={false} />
+    </ToDoItemBox>
+  );
 }
 
 export default ToDoItem;

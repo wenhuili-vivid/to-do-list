@@ -29,6 +29,8 @@ const ToDoListBox = styled.ul`
 function ToDoList() {
   const [toDoItems, setToDoItems] = useState(getMyToDoList());
   const [isShowModal, setIsShowModal] = useState(false);
+  const [modalPositionTop, setModalPositionTop] = useState('0px');
+  const [modalPositionLeft, setModalPositionLeft] = useState('0px');
 
   useEffect(() => {
     setMyToDoList(toDoItems);
@@ -51,7 +53,10 @@ function ToDoList() {
     setToDoItems(update(toDoItems, { [index]: { deadline: { $set: deadline } } }));
   };
 
-  const getAddDateFocusHandler = () => {
+  const getAddDateFocusHandler = (index) => {
+    const element = document.getElementsByTagName('li')[index].children[1];
+    setModalPositionTop(`${element.offsetTop + element.offsetHeight}px`);
+    setModalPositionLeft(`${element.offsetLeft}px`);
     setIsShowModal(true);
   };
 
@@ -73,7 +78,7 @@ function ToDoList() {
       item={item}
       onDescriptionChange={(description) => getDescriptionChangeHandler(index, description)}
       onStatusChange={(isFinished) => getStatusChangeHandler(index, isFinished)}
-      onAddDateFocus={getAddDateFocusHandler}
+      onAddDateFocus={() => getAddDateFocusHandler(index)}
       onAddDateChange={(deadline) => (getAddDateHandler(index, deadline))}
       onDelete={() => (getDeleteHandler(index))}
     />
@@ -92,6 +97,8 @@ function ToDoList() {
         onOpen={isShowModal}
         onClose={getAddDateCloseHandler}
         content={renderCalendar()}
+        top={modalPositionTop}
+        left={modalPositionLeft}
       />
     </Wrapper>
   );

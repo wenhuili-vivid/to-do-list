@@ -50,7 +50,9 @@ const CloseButton = styled.button`
   border-radius: 3px;
 `;
 
-function Modal({ onOpen, content, onClose }) {
+function Modal({
+  onOpen, content, onClose, top, left,
+}) {
   const [animationClassName, setAnimationClassName] = useState('');
   const onTransitionEnd = () => {
     setAnimationClassName(onOpen ? 'enter-done' : 'exit-done');
@@ -79,7 +81,7 @@ function Modal({ onOpen, content, onClose }) {
   };
 
   return createPortal(
-    <ModalBox className={`${animationClassName}`} onTransitionEnd={onTransitionEnd}>
+    <ModalBox className={`${animationClassName}`} onTransitionEnd={onTransitionEnd} style={{ top, left }}>
       <div>{content}</div>
       <CloseButton onClick={handleClose} primary>
         Close
@@ -95,4 +97,6 @@ Modal.propTypes = {
   onOpen: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
   content: PropTypes.element.isRequired,
+  top: PropTypes.string.isRequired,
+  left: PropTypes.string.isRequired,
 };

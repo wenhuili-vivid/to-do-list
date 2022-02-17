@@ -7,7 +7,6 @@ const BodyWrapper = styled.div`
 `;
 
 const WeekLabel = styled.div`
-  padding: .5em 0;
   display: flex;
   justify-content: center;
   align-content: center;
@@ -16,31 +15,46 @@ const WeekLabel = styled.div`
     padding: 1em;
     flex: 1;
     text-align: center;
-    border: 1px solid #81dae7;
-    color: #333;
+    border: 1px solid palevioletred;
+    color: #035757;
+    font-weight: bold;
+  }
+`;
+
+const DaysInWeek = styled.div`
+  display: flex;
+  justify-content: center;
+  align-content: center;
+
+  div {
+    padding: 1em;
+    flex: 1;
+    text-align: center;
+    border: 1px solid palevioletred;
+    color: #035757;
+    font-weight: bold;
   }
 `;
 
 function CalendarBody() {
-  const [weekLabelArray] = useState([
-    'Sun.',
-    'Mon.',
-    'Tues.',
-    'Wed.',
-    'Thur.',
-    'Fri.',
-    'Sat.',
-  ]);
+  const [weekLabelArray] = useState(['Sun.', 'Mon.', 'Tues.', 'Wed.', 'Thur.', 'Fri.', 'Sat.']);
 
   return (
     <BodyWrapper>
       <WeekLabel>
         {weekLabelArray.map((label) => (
-          <div>
+          <div key={label}>
             {label}
           </div>
         ))}
       </WeekLabel>
+      <DaysInWeek>
+        {weekLabelArray.map((label) => (
+          <div key={label}>
+            {label}
+          </div>
+        ))}
+      </DaysInWeek>
     </BodyWrapper>
   );
 }

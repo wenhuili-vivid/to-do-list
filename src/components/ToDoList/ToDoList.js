@@ -4,6 +4,8 @@ import update from 'immutability-helper';
 import AddButton from '../AddButton/AddButton';
 import ToDoItem from '../ToDoItem/ToDoItem';
 import { getMyToDoList, setMyToDoList } from '../../store/myToDoList';
+import Modal from '../Modal/Modal';
+import Calendar from '../Calendar/Calendar';
 
 const Title = styled.h1`
     font-size: 1.5em;
@@ -26,6 +28,7 @@ const ToDoListBox = styled.ul`
 
 function ToDoList() {
   const [toDoItems, setToDoItems] = useState(getMyToDoList());
+  const [isShowModal, setIsShowModal] = useState(false);
 
   useEffect(() => {
     setMyToDoList(toDoItems);
@@ -44,12 +47,25 @@ function ToDoList() {
   };
 
   const getAddDateHandler = (index, deadline) => {
+    setIsShowModal(true);
     setToDoItems(update(toDoItems, { [index]: { deadline: { $set: deadline } } }));
+  };
+
+  const getAddDateFocusHandler = () => {
+    setIsShowModal(true);
+  };
+
+  const getAddDateCloseHandler = () => {
+    setIsShowModal(false);
   };
 
   const getDeleteHandler = (index) => {
     setToDoItems(update(toDoItems, { $splice: [[index, 1]] }));
   };
+
+  const renderCalendar = () => (
+    <Calendar />
+  );
 
   const renderToDoItem = (item, index) => (
     <ToDoItem
@@ -57,7 +73,8 @@ function ToDoList() {
       item={item}
       onDescriptionChange={(description) => getDescriptionChangeHandler(index, description)}
       onStatusChange={(isFinished) => getStatusChangeHandler(index, isFinished)}
-      onAddDate={(deadline) => (getAddDateHandler(index, deadline))}
+      onAddDateFocus={getAddDateFocusHandler}
+      onAddDateChange={(deadline) => (getAddDateHandler(index, deadline))}
       onDelete={() => (getDeleteHandler(index))}
     />
   );
@@ -71,6 +88,11 @@ function ToDoList() {
           toDoItems.map(renderToDoItem)
         }
       </ToDoListBox>
+      <Modal
+        onOpen={isShowModal}
+        onClose={getAddDateCloseHandler}
+        content={renderCalendar()}
+      />
     </Wrapper>
   );
 }

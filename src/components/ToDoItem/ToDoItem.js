@@ -7,8 +7,10 @@ const ToDoItemBox = styled.li`
   padding: .5em;
 `;
 
-const CheckBox = styled.input`
-  padding: .5em;
+const CheckBox = styled.div`
+  margin: auto .5em 1.2em;
+  display: inline-block;
+  vertical-align: middle;
 `;
 
 const ToDoItemContent = styled.div`
@@ -74,7 +76,9 @@ function ToDoItem({ ...props }) {
   const { item: { description, isFinished, deadline } } = props;
   return (
     <ToDoItemBox>
-      <CheckBox type="checkbox" checked={isFinished} onChange={handleCheckboxChange} />
+      <CheckBox>
+        <input type="checkbox" checked={isFinished} onChange={handleCheckboxChange} />
+      </CheckBox>
       <ToDoItemContent>
         <DescriptionInput type="text" placeholder="Please input your todo" value={description} onChange={handleInputChange} disabled={isFinished} />
         <DateInput type="text" placeholder="Add Date" value={deadline} onChange={handleAddDateChange} />

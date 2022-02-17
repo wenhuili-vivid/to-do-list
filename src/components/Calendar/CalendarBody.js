@@ -12,12 +12,11 @@ const WeekLabel = styled.div`
   align-content: center;
 
   div {
-    padding: 1em;
+    padding: .5em;
     flex: 1;
     text-align: center;
     border: 1px solid palevioletred;
-    color: #035757;
-    font-weight: bold;
+    color: #333;
   }
 `;
 
@@ -27,12 +26,11 @@ const DaysInWeek = styled.div`
   align-content: center;
 
   div {
-    padding: 1em;
+    padding: .5em;
     flex: 1;
     text-align: center;
     border: 1px solid palevioletred;
-    color: #035757;
-    font-weight: bold;
+    color: #333;
   }
 `;
 
@@ -48,13 +46,7 @@ function CalendarBody() {
           </div>
         ))}
       </WeekLabel>
-      <DaysInWeek>
-        {weekLabelArray.map((label) => (
-          <div key={label}>
-            {label}
-          </div>
-        ))}
-      </DaysInWeek>
+      <DaysInWeek />
     </BodyWrapper>
   );
 }

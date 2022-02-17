@@ -10,8 +10,8 @@ const ModalBox = styled.div`
   text-align: center;
   background: #fffdfd;
   position: absolute;
-  top: 50%;
-  right: 20%;
+  top: 30%;
+  right: 30%;
 
   .enter {
     opacity: 0;

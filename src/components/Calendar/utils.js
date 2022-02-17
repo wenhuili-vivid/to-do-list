@@ -1,12 +1,3 @@
-export const timestampToDateString = (timestamp) => {
-  const date = new Date(timestamp);
-  const year = `${date.getFullYear()}年`;
-  const month = `${date.getMonth() + 1}月`;
-  // const day = date.getDate()+'日';
-  const formatPart = (value) => (value < 10 ? `0${value}` : `${value}`);
-  return `${formatPart(year)}/${formatPart(month)}`;
-};
-
 const transfer = (currentDate, format) => {
   const date = new Date(currentDate);
   const o = {
@@ -42,22 +33,21 @@ const transfer = (currentDate, format) => {
   return format;
 };
 
-export const dateFormat = (timeSpan, format, formatDateNullValue) => {
-  if (!timeSpan) {
+export const dateFormat = (unformatDate, format, formatDateNullValue) => {
+  if (!unformatDate) {
     if (formatDateNullValue) {
       return formatDateNullValue;
     }
     return '无';
   }
 
-  const date = new Date(timeSpan);
+  const date = new Date(unformatDate);
 
   return transfer(date, format);
 };
 
 export const getHeaderContent = (date) => {
   const currentDate = new Date(date);
-
   return dateFormat(currentDate, 'yyyy年 MM月');
 };
 
@@ -66,4 +56,31 @@ export const getFirstDayOfMonth = (date) => {
   currentDate.setDate(1);
 
   return currentDate;
+};
+
+export const getFirstDayOfCalendar = (date) => {
+  let currentDate = new Date(date);
+  currentDate = new Date(
+    currentDate.setDate(currentDate.getDate() - currentDate.getDay()),
+  );
+  // 如果当前日期大于当前月第一天，则需要减去7天
+  if (currentDate > date) {
+    currentDate = new Date(currentDate.setDate(currentDate.getDate() - 7));
+  }
+
+  return currentDate;
+};
+
+export const isCurrentMonth = (
+  firstDayOfMonth,
+  date,
+) => firstDayOfMonth.getMonth() === date.getMonth();
+
+export const isCurrentDay = (date) => {
+  const currentDate = new Date();
+  return (
+    date.getFullYear() === currentDate.getFullYear()
+      && date.getMonth() === currentDate.getMonth()
+      && date.getDate() === currentDate.getDate()
+  );
 };

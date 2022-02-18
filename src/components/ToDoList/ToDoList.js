@@ -66,8 +66,9 @@ function ToDoList() {
   const getAddDateCheckedHandler = (deadline) => {
     setIsShowModal(false);
     setCurrentCheckedDate(deadline);
-    // eslint-disable-next-line max-len
-    setToDoItems(update(toDoItems, { [operatingToDoItemIndex]: { deadline: { $set: deadline } } }));
+    setToDoItems(update(toDoItems, {
+      [operatingToDoItemIndex]: { deadline: { $set: deadline } },
+    }));
   };
 
   const getAddDateCloseHandler = () => {

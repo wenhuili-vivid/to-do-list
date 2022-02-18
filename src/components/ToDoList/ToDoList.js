@@ -77,10 +77,6 @@ function ToDoList() {
     setToDoItems(update(toDoItems, { $splice: [[index, 1]] }));
   };
 
-  const renderCalendar = () => (
-    <Calendar checkedDate={currentCheckedDate} onAddDateChecked={getAddDateCheckedHandler} />
-  );
-
   const renderToDoItem = (item, index) => (
     <ToDoItem
       key={index}
@@ -105,10 +101,11 @@ function ToDoList() {
       <Modal
         onOpen={isShowModal}
         onClose={getAddDateCloseHandler}
-        content={renderCalendar()}
         top={modalPositionTop}
         left={modalPositionLeft}
-      />
+      >
+        <Calendar checkedDate={currentCheckedDate} onAddDateChecked={getAddDateCheckedHandler} />
+      </Modal>
     </Wrapper>
   );
 }

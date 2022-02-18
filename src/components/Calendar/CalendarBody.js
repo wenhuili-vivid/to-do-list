@@ -41,7 +41,18 @@ const DaysInWeek = styled.div`
     flex: 1;
     border-right:  1px solid palevioletred;
     border-bottom: 1px solid palevioletred;
-    color: #333;
+    color: #888;
+    background: #e8e8e8;
+  }
+  
+  .current-month {
+    color: palevioletred;
+    background: white;
+  }
+  
+  .current-day {
+    color: white;
+    background: palevioletred;
   }
 `;
 
@@ -99,6 +110,8 @@ function CalendarBody() {
                 tabIndex={0}
                 onClick={() => handleDateChecked(day.day)}
                 onKeyDown={() => handleDateChecked(day.day)}
+                className={`${day.isCurrentMonth ? 'current-month' : ''
+                } ${day.isCurrentDay ? 'current-day' : ''}`}
               >
                 {day.day}
               </div>

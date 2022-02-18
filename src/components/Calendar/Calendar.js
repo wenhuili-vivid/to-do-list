@@ -14,7 +14,7 @@ function Calendar({ checkedDate, onAddDateChecked }) {
 
 export default Calendar;
 
-CalendarBody.propsTpye = {
+Calendar.propsTpye = {
   checkedDate: PropTypes.string.isRequired,
   onAddDateChecked: PropTypes.func.isRequired,
 };

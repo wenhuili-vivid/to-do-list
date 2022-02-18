@@ -61,7 +61,7 @@ function ToDoItem({ ...props }) {
     props.onStatusChange(e.target.checked);
   };
 
-  const handleInputChange = (e) => {
+  const handleDescriptionChange = (e) => {
     props.onDescriptionChange(e.target.value);
   };
 
@@ -69,8 +69,8 @@ function ToDoItem({ ...props }) {
     props.onAddDateFocus();
   };
 
-  const handleAddDateChange = (e) => {
-    props.onAddDateChange(e.target.value);
+  const handleAddDateChange = () => {
+    props.onAddDateChange();
   };
 
   const handleDeleteButtonClick = () => {
@@ -84,8 +84,8 @@ function ToDoItem({ ...props }) {
         <input type="checkbox" checked={isFinished} onChange={handleCheckboxChange} />
       </CheckBox>
       <ToDoItemContent>
-        <DescriptionInput type="text" placeholder="Please input your todo" value={description} onChange={handleInputChange} disabled={isFinished} />
-        <DateInput type="text" placeholder="Add Date" value={deadline} onChange={handleAddDateChange} onFocus={handleAddDateFocus} />
+        <DescriptionInput type="text" placeholder="Please input your todo" value={description} onChange={handleDescriptionChange} disabled={isFinished} />
+        <DateInput type="text" placeholder="Add Date" value={deadline} onFocus={handleAddDateFocus} onChange={handleAddDateChange} readOnly />
       </ToDoItemContent>
       <DeleteButton onClick={handleDeleteButtonClick} primary={false} />
     </ToDoItemBox>

@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 import {
-  getFirstDayOfCalendar, getFirstDayOfMonth, isCurrentDay, isCurrentMonth,
+  dateFormat, getFirstDayOfCalendar, getFirstDayOfMonth, isCurrentDay, isCurrentMonth,
 } from './utils';
 
 const BodyWrapper = styled.div`
@@ -56,17 +57,20 @@ const DaysInWeek = styled.div`
   }
 `;
 
-function CalendarBody() {
-  const [weekLabels] = useState(['Sun.', 'Mon.', 'Tues.', 'Wed.', 'Thur.', 'Fri.', 'Sat.']);
-  const [firstDayOfMonth] = useState(getFirstDayOfMonth(new Date()));
-  const [weekValues, setWeekValues] = useState([[]]);
+function CalendarBody({ onAddDateChecked }) {
+  const [weekValues, setWeekValues] = useState([]);
+  const weekLabels = ['Sun.', 'Mon.', 'Tues.', 'Wed.', 'Thur.', 'Fri.', 'Sat.'];
+  const firstDayOfMonth = getFirstDayOfMonth(new Date());
 
   const setWeekValuesArray = () => {
     const newWeekValuesList = [];
     let dayOfCalendar = getFirstDayOfCalendar(firstDayOfMonth);
 
     for (let weekIndex = 0; weekIndex < 6; weekIndex += 1) {
-      const weekItem = [];
+      const weekItem = {
+        id: weekIndex,
+        daysInWeek: [],
+      };
       for (let dayIndex = 0; dayIndex < 7; dayIndex += 1) {
         const dayItem = {
           date: dayOfCalendar,
@@ -74,7 +78,7 @@ function CalendarBody() {
           isCurrentMonth: isCurrentMonth(firstDayOfMonth, dayOfCalendar),
           isCurrentDay: isCurrentDay(dayOfCalendar),
         };
-        weekItem.push(dayItem);
+        weekItem.daysInWeek.push(dayItem);
         dayOfCalendar = new Date(dayOfCalendar.getTime() + 24 * 60 * 60 * 1000);
       }
       newWeekValuesList.push(weekItem);
@@ -86,8 +90,8 @@ function CalendarBody() {
     setWeekValuesArray();
   }, []);
 
-  const handleDateChecked = (day) => {
-    console.log(day);
+  const handleDateChecked = (date) => {
+    onAddDateChecked(dateFormat(date, 'yyyy年 MM月 dd日'));
   };
 
   return (
@@ -100,16 +104,15 @@ function CalendarBody() {
         ))}
       </WeekLabel>
       <WeekList>
-        {weekValues.map((week, index) => (
-          // eslint-disable-next-line react/no-array-index-key
-          <DaysInWeek key={`week ${index}`}>
-            {week.map((day) => (
+        {weekValues.map((week) => (
+          <DaysInWeek key={week.id}>
+            {week.daysInWeek.map((day) => (
               <div
                 key={day.date}
                 role="button"
                 tabIndex={0}
-                onClick={() => handleDateChecked(day.day)}
-                onKeyDown={() => handleDateChecked(day.day)}
+                onClick={() => handleDateChecked(day.date)}
+                onKeyDown={() => handleDateChecked(day.date)}
                 className={`${day.isCurrentMonth ? 'current-month' : ''
                 } ${day.isCurrentDay ? 'current-day' : ''}`}
               >
@@ -124,3 +127,7 @@ function CalendarBody() {
 }
 
 export default CalendarBody;
+
+CalendarBody.propsTpye = {
+  onAddDateChecked: PropTypes.func.isRequired,
+};

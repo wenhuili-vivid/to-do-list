@@ -29,6 +29,8 @@ const ToDoListBox = styled.ul`
 function ToDoList() {
   const [toDoItems, setToDoItems] = useState(getMyToDoList());
   const [isShowModal, setIsShowModal] = useState(false);
+  const [currentCheckedDate, setCurrentCheckedDate] = useState(new Date());
+  const [operatingToDoItemIndex, setOperatingToDoItemIndex] = useState(0);
   const [modalPositionTop, setModalPositionTop] = useState('0px');
   const [modalPositionLeft, setModalPositionLeft] = useState('0px');
 
@@ -48,16 +50,23 @@ function ToDoList() {
     setToDoItems(update(toDoItems, { [index]: { isFinished: { $set: isFinished } } }));
   };
 
-  const getAddDateHandler = (index, deadline) => {
-    setIsShowModal(true);
-    setToDoItems(update(toDoItems, { [index]: { deadline: { $set: deadline } } }));
-  };
-
   const getAddDateFocusHandler = (index) => {
     const element = document.getElementsByTagName('li')[index].children[1];
     setModalPositionTop(`${element.offsetTop + element.offsetHeight}px`);
     setModalPositionLeft(`${element.offsetLeft}px`);
     setIsShowModal(true);
+    setOperatingToDoItemIndex(index);
+  };
+
+  const getAddDateChangeHandler = (index) => {
+    setToDoItems(update(toDoItems, { [index]: { deadline: { $set: currentCheckedDate } } }));
+  };
+
+  const getAddDateCheckedHandler = (deadline) => {
+    setIsShowModal(false);
+    setCurrentCheckedDate(deadline);
+    // eslint-disable-next-line max-len
+    setToDoItems(update(toDoItems, { [operatingToDoItemIndex]: { deadline: { $set: deadline } } }));
   };
 
   const getAddDateCloseHandler = () => {
@@ -69,7 +78,7 @@ function ToDoList() {
   };
 
   const renderCalendar = () => (
-    <Calendar />
+    <Calendar checkedDate={currentCheckedDate} onAddDateChecked={getAddDateCheckedHandler} />
   );
 
   const renderToDoItem = (item, index) => (
@@ -79,7 +88,7 @@ function ToDoList() {
       onDescriptionChange={(description) => getDescriptionChangeHandler(index, description)}
       onStatusChange={(isFinished) => getStatusChangeHandler(index, isFinished)}
       onAddDateFocus={() => getAddDateFocusHandler(index)}
-      onAddDateChange={(deadline) => (getAddDateHandler(index, deadline))}
+      onAddDateChange={() => (getAddDateChangeHandler(index))}
       onDelete={() => (getDeleteHandler(index))}
     />
   );

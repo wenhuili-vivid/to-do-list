@@ -19,6 +19,7 @@ const Wrapper = styled.section`
     background: papayawhip;
     text-align: center;
     height: 100vh;
+    overflow-y: scroll;
 `;
 
 const ToDoListBox = styled.ul`

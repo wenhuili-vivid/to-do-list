@@ -1,5 +1,7 @@
+const toDoListData = 'myToDoList';
+
 export const getMyToDoList = () => {
-  let myToDoList = window.localStorage.getItem('myToDoList');
+  let myToDoList = window.localStorage.getItem(toDoListData);
   if (myToDoList == null || myToDoList === '') {
     myToDoList = [];
   } else {
@@ -9,5 +11,5 @@ export const getMyToDoList = () => {
 };
 
 export const setMyToDoList = (myToDoList) => {
-  window.localStorage.setItem('myToDoList', JSON.stringify(myToDoList));
+  window.localStorage.setItem(toDoListData, JSON.stringify(myToDoList));
 };

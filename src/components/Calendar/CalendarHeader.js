@@ -5,7 +5,7 @@ import { getHeaderContent } from './utils';
 const HeaderWrapper = styled.div`
   margin: 0;
   padding: .5em;
-  border: 1px solid palevioletred;
+  border: 1px solid #fdb0c9;
   color: #333;
   text-align: center;
 `;

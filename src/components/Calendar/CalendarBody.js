@@ -8,7 +8,7 @@ import {
 const BodyWrapper = styled.div`
   margin: 0;
   padding: 0;
-  border-left: 1px solid palevioletred;
+  border-left: 1px solid #fdb0c9;
   font-size: .8em;
   text-align: center;
 `;
@@ -21,8 +21,8 @@ const WeekLabel = styled.div`
   div {
     padding: .5em;
     flex: 1;
-    border-right:  1px solid palevioletred;
-    border-bottom: 1px solid palevioletred;
+    border-right:  1px solid #fdb0c9;
+    border-bottom: 1px solid #fdb0c9;
     color: #333;
   }
 `;
@@ -40,8 +40,8 @@ const DaysInWeek = styled.div`
   div {
     padding: .5em;
     flex: 1;
-    border-right:  1px solid palevioletred;
-    border-bottom: 1px solid palevioletred;
+    border-right:  1px solid #fdb0c9;
+    border-bottom: 1px solid #fdb0c9;
     color: #888;
     background: #e8e8e8;
   }
@@ -91,7 +91,7 @@ function CalendarBody({ onAddDateChecked }) {
   }, []);
 
   const handleDateChecked = (date) => {
-    onAddDateChecked(dateFormat(date, 'yyyy年 MM月 dd日'));
+    onAddDateChecked(dateFormat(date, 'dd/MM/yy'));
   };
 
   return (

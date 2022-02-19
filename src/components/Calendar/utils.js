@@ -48,7 +48,7 @@ export const dateFormat = (unformatDate, format, formatDateNullValue) => {
 
 export const getHeaderContent = (date) => {
   const currentDate = new Date(date);
-  return dateFormat(currentDate, 'yyyy年 MM月');
+  return dateFormat(currentDate, 'MM/yy');
 };
 
 export const getFirstDayOfMonth = (date) => {

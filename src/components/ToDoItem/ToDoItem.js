@@ -87,7 +87,7 @@ function ToDoItem({ ...props }) {
         <DescriptionInput type="text" placeholder="Please input your todo" value={description} onChange={handleDescriptionChange} disabled={isFinished} />
         <DateInput type="text" placeholder="Add Date" value={deadline} onFocus={handleAddDateFocus} onChange={handleAddDateChange} readOnly />
       </ToDoItemContent>
-      <DeleteButton onClick={handleDeleteButtonClick} primary={false} />
+      <DeleteButton onClick={handleDeleteButtonClick} primary={false}>Delete</DeleteButton>
     </ToDoItemBox>
   );
 }

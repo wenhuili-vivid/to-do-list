@@ -1,9 +1,8 @@
-import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import styles from '../../styles/variables';
 
-const Button = styled.button`
+const AddButton = styled.button`
     background: ${(props) => (props.primary ? styles.backgroundColor : 'white')};
     color:  ${(props) => (props.primary ? 'white' : styles.backgroundColor)};
     font-size: 1em;
@@ -19,22 +18,11 @@ const Button = styled.button`
     }
 `;
 
-function AddButton(props) {
-  const {
-    onClick, primary, disabled, label,
-  } = props;
-  return (
-    <div>
-      <Button onClick={onClick} primary={primary} disabled={disabled}>{label}</Button>
-    </div>
-  );
-}
-
 AddButton.propTypes = {
   onClick: PropTypes.func.isRequired,
   primary: PropTypes.bool.isRequired,
   disabled: PropTypes.bool.isRequired,
-  label: PropTypes.string.isRequired,
+  children: PropTypes.string.isRequired,
 };
 
 export default AddButton;

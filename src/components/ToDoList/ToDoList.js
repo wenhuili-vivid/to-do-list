@@ -94,7 +94,7 @@ function ToDoList() {
   return (
     <Wrapper>
       <Title>To Do List</Title>
-      <AddButton onClick={getAddHandler} primary disabled={false} label="+ Create" />
+      <AddButton onClick={getAddHandler} primary disabled={false}>+ Create</AddButton>
       <ToDoListBox>
         {
           toDoItems.map(renderToDoItem)

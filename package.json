@@ -1,7 +1,8 @@
 {
   "name": "to-do-list",
   "version": "0.1.0",
-  "private": true,
+  "private": false,
+  "homepage": "https://wenhuili-vivid.github.io/to-do-list/",
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.2",
     "@testing-library/react": "^12.1.2",
@@ -20,6 +21,8 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
@@ -86,5 +89,6 @@
   },
   "resolutions": {
     "styled-components": "^5"
-  }
+  },
+  "main": "index.js"
 }

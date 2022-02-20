@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { createPortal } from 'react-dom';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
@@ -12,32 +12,6 @@ const ModalBox = styled.div`
   position: absolute;
   top: 30%;
   right: 30%;
-
-  .enter {
-    opacity: 0;
-  }
-
-  .enter-active {
-    transition: opacity 200ms ease-in-out;
-    opacity: 1;
-  }
-
-  .enter-done {
-    opacity: 1;
-  }
-
-  .exit {
-    opacity: 1;
-  }
-
-  .exit-active {
-    opacity: 0;
-    transition: opacity 200ms ease-in-out;
-  }
-
-  .exit-done {
-    opacity: 0;
-  }
 `;
 
 const CloseButton = styled.button`
@@ -53,25 +27,6 @@ const CloseButton = styled.button`
 function Modal({
   onOpen, children, onClose, top, left,
 }) {
-  const [animationClassName, setAnimationClassName] = useState('');
-  const onTransitionEnd = () => {
-    setAnimationClassName(onOpen ? 'enter-done' : 'exit-done');
-  };
-
-  useEffect(() => {
-    if (onOpen) {
-      setAnimationClassName('enter');
-      setTimeout(() => {
-        setAnimationClassName('enter-active');
-      });
-    } else {
-      setAnimationClassName('exit');
-      setTimeout(() => {
-        setAnimationClassName('exit-active');
-      });
-    }
-  }, [onOpen]);
-
   if (!onOpen) {
     return null;
   }
@@ -81,7 +36,7 @@ function Modal({
   };
 
   return createPortal(
-    <ModalBox className={`${animationClassName}`} onTransitionEnd={onTransitionEnd} style={{ top, left }}>
+    <ModalBox style={{ top, left }}>
       <div>{children}</div>
       <CloseButton onClick={handleClose} primary>
         Close

@@ -53,6 +53,8 @@ function ToDoList() {
   };
 
   const getAddDateFocusHandler = (index) => {
+    const { deadline } = toDoItems[index];
+    setCurrentCheckedDate(new Date(deadline));
     const element = document.getElementsByTagName('li')[index].children[1];
     setModalPositionTop(`${element.offsetTop + element.offsetHeight}px`);
     setModalPositionLeft(`${element.offsetLeft}px`);
@@ -64,7 +66,7 @@ function ToDoList() {
     setIsShowModal(false);
     setCurrentCheckedDate(deadline);
     setToDoItems(update(toDoItems, {
-      [operatingToDoItemIndex]: { deadline: { $set: dateFormat(deadline, 'dd/MM/yy') } },
+      [operatingToDoItemIndex]: { deadline: { $set: dateFormat(deadline, 'yyyy-MM-dd') } },
     }));
   };
 

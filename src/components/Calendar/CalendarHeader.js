@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 import { getHeaderContent } from './utils';
 
 const HeaderWrapper = styled.div`
@@ -30,22 +31,22 @@ const HeaderContent = styled.span`
   color: #333;
 `;
 
-function CalendarHeader() {
+function CalendarHeader({ firstDayOfMonth, onLastMonthClick, onNextMonthClick }) {
   const [headerContent, setHeaderContent] = useState('');
 
   const leftArrow = '<';
   const rightArrow = '>';
 
   useEffect(() => {
-    setHeaderContent(getHeaderContent(new Date()));
-  }, []);
+    setHeaderContent(getHeaderContent(new Date(firstDayOfMonth)));
+  }, [firstDayOfMonth]);
 
   const handleShowLastMonth = () => {
-
+    onLastMonthClick();
   };
 
   const handleShowNextMonth = () => {
-
+    onNextMonthClick();
   };
 
   return (
@@ -62,3 +63,9 @@ function CalendarHeader() {
 }
 
 export default CalendarHeader;
+
+CalendarHeader.propsTpye = {
+  firstDayOfMonth: PropTypes.instanceOf(Date).isRequired,
+  onLastMonthClick: PropTypes.func.isRequired,
+  onNextMonthClick: PropTypes.func.isRequired,
+};

@@ -84,3 +84,15 @@ export const isCurrentDay = (date) => {
       && date.getDate() === currentDate.getDate()
   );
 };
+
+export const getFirstDayOfNextMonth = (firstDayOfCurrentMonth) => new Date(
+  firstDayOfCurrentMonth.getFullYear(),
+  firstDayOfCurrentMonth.getMonth() + 1,
+  1,
+);
+
+export const getFirstDayOfLastMonth = (firstDayOfCurrentMonth) => new Date(
+  firstDayOfCurrentMonth.getFullYear(),
+  firstDayOfCurrentMonth.getMonth() - 1,
+  1,
+);

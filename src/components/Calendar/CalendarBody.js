@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import {
-  dateFormat, getFirstDayOfCalendar, getFirstDayOfMonth, isCurrentDay, isCurrentMonth,
+  dateFormat, getFirstDayOfCalendar, isCurrentDay, isCurrentMonth,
 } from './utils';
 
 const BodyWrapper = styled.div`
@@ -47,20 +47,20 @@ const DaysInWeek = styled.div`
   }
   
   .current-month {
-    color: palevioletred;
+    color: #444;
     background: white;
   }
   
   .current-day {
-    color: white;
-    background: palevioletred;
+    color: palevioletred;
+    background: white;
+    font-weight: bold;
   }
 `;
 
-function CalendarBody({ onAddDateChecked }) {
+function CalendarBody({ firstDayOfMonth, onAddDateChecked }) {
   const [weekValues, setWeekValues] = useState([]);
   const weekLabels = ['Sun.', 'Mon.', 'Tues.', 'Wed.', 'Thur.', 'Fri.', 'Sat.'];
-  const firstDayOfMonth = getFirstDayOfMonth(new Date());
 
   const setWeekValuesArray = () => {
     const newWeekValuesList = [];
@@ -88,7 +88,7 @@ function CalendarBody({ onAddDateChecked }) {
 
   useEffect(() => {
     setWeekValuesArray();
-  }, []);
+  }, [firstDayOfMonth]);
 
   const handleDateChecked = (date) => {
     onAddDateChecked(dateFormat(date, 'dd/MM/yy'));
@@ -130,4 +130,6 @@ export default CalendarBody;
 
 CalendarBody.propsTpye = {
   onAddDateChecked: PropTypes.func.isRequired,
+  onLastMonthClick: PropTypes.func.isRequired,
+  onNextMonthClick: PropTypes.func.isRequired,
 };

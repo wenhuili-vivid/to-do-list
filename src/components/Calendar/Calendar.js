@@ -36,6 +36,6 @@ function Calendar({ checkedDate, onAddDateChecked }) {
 export default Calendar;
 
 Calendar.propsTpye = {
-  checkedDate: PropTypes.string.isRequired,
+  checkedDate: PropTypes.instanceOf(Date).isRequired,
   onAddDateChecked: PropTypes.func.isRequired,
 };

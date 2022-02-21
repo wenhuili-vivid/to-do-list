@@ -6,6 +6,7 @@ import ToDoItem from '../ToDoItem/ToDoItem';
 import { getMyToDoList, setMyToDoList } from '../../store/myToDoList';
 import Modal from '../Modal/Modal';
 import Calendar from '../Calendar/Calendar';
+import { dateFormat } from '../Calendar/utils';
 
 const Title = styled.h1`
     font-size: 1.5em;
@@ -59,15 +60,11 @@ function ToDoList() {
     setOperatingToDoItemIndex(index);
   };
 
-  const getAddDateChangeHandler = (index) => {
-    setToDoItems(update(toDoItems, { [index]: { deadline: { $set: currentCheckedDate } } }));
-  };
-
   const getAddDateCheckedHandler = (deadline) => {
     setIsShowModal(false);
     setCurrentCheckedDate(deadline);
     setToDoItems(update(toDoItems, {
-      [operatingToDoItemIndex]: { deadline: { $set: deadline } },
+      [operatingToDoItemIndex]: { deadline: { $set: dateFormat(deadline, 'dd/MM/yy') } },
     }));
   };
 
@@ -86,7 +83,6 @@ function ToDoList() {
       onDescriptionChange={(description) => getDescriptionChangeHandler(index, description)}
       onStatusChange={(isFinished) => getStatusChangeHandler(index, isFinished)}
       onAddDateFocus={() => getAddDateFocusHandler(index)}
-      onAddDateChange={() => (getAddDateChangeHandler(index))}
       onDelete={() => (getDeleteHandler(index))}
     />
   );

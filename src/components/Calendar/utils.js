@@ -85,6 +85,12 @@ export const isCurrentDay = (date) => {
   );
 };
 
+export const isCheckedDate = (currentCheckedDay, date) => (
+  date.getFullYear() === currentCheckedDay.getFullYear()
+      && date.getMonth() === currentCheckedDay.getMonth()
+      && date.getDate() === currentCheckedDay.getDate()
+);
+
 export const getFirstDayOfNextMonth = (firstDayOfCurrentMonth) => new Date(
   firstDayOfCurrentMonth.getFullYear(),
   firstDayOfCurrentMonth.getMonth() + 1,
